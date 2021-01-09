@@ -1,0 +1,170 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{Topology}[20210109 v0.1 test]
+%设定字体
+
+% \setCJKmainfont{Source Han Serif SC}
+% [
+% 	Path		=./fonts/,
+% 	UprightFont	=*-Regular ,
+% 	BoldFont	=*-Bold, 
+% 	]
+%% \textbf为思源宋体
+
+\setCJKmainfont[BoldFont=Source Han Sans CN-Medium, ItalicFont=STKaiti]{Source Han Serif SC}
+
+% \setCJKmainfont[BoldFont=SourceHanSansCN, ItalicFont=STKaiti]{Source Han Serif CN}
+%% \textbf为中易黑体
+
+%% \setCJKsansfont{Source Han Sans CN}
+%% \setCJKmonofont{Source Han Sans CN}
+%% \setCJKfamilyfont{boldsong}{Source Han Serif CN Heavy}
+\normalspacedchars{*}
+%数学式
+\RequirePackage{mathtools,extarrows, unicode-math} %数学式宏包, 更多箭头, 黑板体等数学字体,leqslant等符号
+\unimathsetup{bold-style=ISO}
+\setmathfont{latinmodern-math.otf}[]
+\setmathfont{texgyrepagella-math.otf}[range=bb]
+\setmathfont{XITSMath-Regular.otf}[range={"02205, "029F5}]	% 将空集, 差集符号字体设置为 XITS
+\RequirePackage{siunitx}
+\RequirePackage{amsthm} %定理环境
+\numberwithin{equation}{section}
+\RequirePackage{cases}
+
+\RequirePackage{tasks}
+\NewTasksEnvironment[label={(\arabic*)}, item-indent=4em, label-offset=1em]{lpbn}(2)
+\NewTasksEnvironment[label={(\roman*)}, item-indent=6em, label-offset=1em]{alpbn}(3)
+\RequirePackage{fontawesome} % 提供大拇指
+\NewTasksEnvironment[label={\faThumbsOUp}, item-indent=2em, label-offset=.5em]{THANKS}[*](4)
+% \NewTasksEnvironment[counter-format=tsk[A].]{xrze}[*]
+
+%版式
+\RequirePackage[a4paper,hmargin=2.5cm,vmargin=2cm]{geometry} %边距
+% \RequirePackage[twoside, a4paper,outer=1.8cm,inner=3.2cm,top=2.5cm,bottom=2cm]{geometry} %当打印时使用此选项
+\setlength{\headheight}{13pt}
+
+\RequirePackage{fancyhdr} 	% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[OL]{\fangsong \nouppercase\leftmark}
+\fancyhead[ER]{\fangsong \nouppercase\rightmark}
+\fancyhead[OR,EL]{\thepage}
+\fancyfoot[C]{}
+
+\RequirePackage{tocbibind}
+\RequirePackage{imakeidx}
+
+\setlength{\skip\footins}{2\baselineskip}
+\numberwithin{footnote}{section}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+% 设置带圈脚注
+% \RequirePackage{pifont}
+% \renewcommand\thefootnote{\ding{\numexpr171+\value{footnote}}}
+\RequirePackage{xpatch, xunicode-addon}
+% use specific font inside \textcircled
+\AtBeginUTFCommand[\textcircled]{\begingroup\EnclosedNumbers}
+\AtEndUTFCommand[\textcircled]{\endgroup}
+
+% set char class and font for circled numbers
+% ref: https://stone-zeng.github.io/2019-02-09-circled-numbers
+\xeCJKDeclareCharClass{Default}{"24EA, "2460->"2473, "3251->"32BF}
+\newfontfamily\EnclosedNumbers{SourceHanSerifSC-Regular.otf}
+% [
+% 	Path 		= ./fonts/, 
+% 	UprightFont	=*-Regular,
+% ]
+\makeatletter
+% output counter "footnote" in circled number style
+\renewcommand\thefootnote{\textcircled{\@arabic\c@footnote}}
+
+% cancel the superscript style of counter used in footnote text
+\xpatchcmd\@makefntext
+{{\hss\@makefnmark}}
+{{\hss\@makefnmark@nosuperscript}\space}
+{}{\fail}
+
+% old: superscript style
+% \def\@makefnmark{\hbox{\@textsuperscript{\normalfont\@thefnmark}}}
+
+% new: normal style, lower baseline
+\def\@makefnmark@nosuperscript{\hbox{\normalfont\@thefnmark}}
+\makeatother
+% \lower .2ex 
+%辅助
+\RequirePackage{array,diagbox,booktabs,tabularx, subfig} 
+%数组环境, 表格中可以添加对角线, 可以调整表格中线的宽度, 可以控制表格宽度并使其自动换行, 子图
+\RequirePackage[shortlabels]{enumitem} % 继承并扩展了enumerate宏包的功能
+\setlist[enumerate, 1]{left=\parindent..0pt, noitemsep, itemindent=2\parindent, listparindent=\parindent, label=(\arabic*)}
+\setlist[enumerate, 2]{left=\parindent..1em, noitemsep, itemindent=2\parindent, listparindent=2\parindent, label=(\roman*)}
+\RequirePackage{textcomp}
+
+%交叉引用
+\RequirePackage{nameref}
+\RequirePackage{prettyref}
+\RequirePackage[colorlinks, linkcolor=Mizuasagi, citecolor=Mizuasagi]{hyperref}
+\RequirePackage{graphicx}
+% 图片默认位置
+\graphicspath{{figure/}}
+\renewcommand{\C}{\ensuremath{\mathbb{C}}} 
+%浮动体
+\RequirePackage{caption} %使用浮动体标题
+\RequirePackage{subfig} %子浮动体
+
+% 新定义计数器
+\newcounter{topo}
+\renewcommand{\thetopo}{\arabic{topo}}
+% \newcounter{Ex}[section]
+% \renewcommand{\theEx}{\thesection.\arabic{Ex}}
+% \newcounter{Qu}[section]
+% \renewcommand{\theQu}{\thesection.\arabic{Qu}}
+
+%新定义定理环境类型
+\newtheoremstyle{normal}% name
+{4pt}% Space above
+{2pt}% Space below
+{}% Body font
+{2\ccwd}% Indent amount
+{\bfseries}% Theorem head font
+{}% Punctuation after theorem head
+{1\ccwd}% Space after theorem head
+{}% Theorem head spec (can be left empty, meaning `normal' )
+\newtheoremstyle{prsol}% name
+{2pt}% Space above
+{4pt}% Space below
+{}% Body font
+{2\ccwd}% Indent amount
+{\bfseries}% Theorem head font
+{}% Punctuation after theorem head
+{1\ccwd}% Space after theorem head
+{}% Theorem head spec (can be left empty, meaning `normal' )
+\newtheoremstyle{Thm}% hnamei
+{3pt}% Space above
+{3pt}% Space below
+{\kaishu}% Body font
+{2\ccwd}% Indent amount
+{\bfseries}% Theorem head font
+{}% Punctuation after theorem head
+{1\ccwd}% Space after theorem head
+{}% Theorem head spec (can be left empty, meaning `normal' )
+
+%新定义定理环境
+\theoremstyle{normal}
+% %\theoremstyle{Thm}
+\newtheorem{Theorem}[topo]{定理}
+% \newtheorem{Theoremn}{定理}
+% \renewcommand{\theTheoremn}{\theMA$'$}
+% \newtheorem{Lemma}[MA]{引理}
+\newtheorem{Definition}[topo]{定义}
+% \newtheorem{Definitionn}{定义}
+% \renewcommand{\theDefinitionn}{\theMA$'$}
+\newtheorem{Corollary}[topo]{推论}
+% \newtheorem{Example}[MA]{例}
+\newtheorem{Remark}{注}
+\newtheorem{Proposition}[topo]{命题}
+% \newtheorem{Exercise}[Ex]{练习题}
+% \newtheorem{Question}[Qu]{问题}
+% \let\savedQuestion\Question
+\theoremstyle{prsol}
+\newtheorem*{Solution}{解}
+\newtheorem*{Proof}{证明}
+
+\input{notations}

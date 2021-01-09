@@ -1,0 +1,110 @@
+%运算符定义
+
+\DeclareMathOperator{\rad}{rad}                         % 指弧度
+\DeclareMathOperator{\diam}{diam}                       % 指直径
+\DeclareMathOperator{\fin}{fin}                         % 指有限子集全体
+\DeclareMathOperator{\esssup}{ess\,sup}                 % 指本性上确界
+\DeclareMathOperator{\conv}{Conv}                       % 指凸包
+\DeclareMathOperator{\Span}{span}                       % 因为\span已经在宏中定义, 这里使用大写的\Span来表示线性张成
+\DeclareMathOperator{\cont}{Cont}                       % 表示函数的连续点
+\DeclareMathOperator{\diag}{diag}                       % 指对角化的算子或对角矩阵
+\DeclareMathOperator{\codim}{codim}                     % 指余维数
+\DeclareMathOperator{\convba}{Convba}                   % 指函数的凸平衡包
+\DeclareMathOperator{\supp}{supp}                       % 指函数的支撑集
+
+%特殊的需要正体的表达
+
+\newcommand{\me}{\ensuremath{\mathrm{e}}}               % 指自然底数e
+\newcommand{\imag}{\mathrm{i}}                          % 指虚数单位i
+\newcommand{\1}{\mathds{1}}                             % 指单位向量1或单位矩阵I
+\newcommand{\id}{\mathrm{id}}                           % 指恒等映射 identity
+\renewcommand{\Re}{\mathrm{Re\,}}                       % 重定义实部 real part
+\renewcommand{\Im}{\mathrm{Im\,}}                       % 重定义虚部 imaginary part
+\newcommand{\sgn}{\mathrm{sgn}\,}                       % 符号数 sign number
+\newcommand{\diff}{\,\mathrm{d}}                        % 微分算子
+\newcommand{\rank}{\ensuremath{\mathrm{rank}\,}}        % 矩阵或算子的秩 rank
+\newcommand{\Graph}{\ensuremath{\mathrm{Graph}\,}}      % 映射的图像
+\newcommand{\ord}{\ensuremath{\mathrm{ord}\,}}          % 群的阶数（群论）、整数的阶（数论）
+\newcommand{\Aut}{\mathrm{Aut}\,}                       % 全体自同构
+\newcommand{\Inn}{\mathrm{Inn}\,}                       % 全体内自同构
+\newcommand{\End}{\mathrm{End}\,}                       % 全体自同态
+\renewcommand{\char}{\mathrm{char}\,}                   % 域的特征
+\newcommand{\lcm}{\mathrm{lcm}\,}                       % 最小公倍数 least common multiple
+\newcommand{\im}{\mathrm{im}\,}                         % 映射的像
+\newcommand{\Mat}{\mathrm{Mat}}                         % 用于矩阵全体 Mat_n(F)
+
+
+% 嵌套结构
+\newcommand{\Star}[1]{#1^{*}}                                           % 带星号的元素（用于对合或伴随）
+\newcommand{\abs}[1]{\ensuremath{\left| #1 \right| }}                   % 自适应大小的绝对值
+\newcommand{\norm}[1]{\ensuremath{\left\| #1 \right\|}}                 % 自适应大小的范数
+\newcommand{\tabs}[1]{\ensuremath{\lvert #1\rvert}}                     % 强制一行大小的绝对值
+\newcommand{\tnorm}[1]{\ensuremath{\lVert #1\rVert}}                    % 强制一行大小的范数
+\newcommand{\Babs}[1]{\ensuremath{\Big| #1 \Big| }}                     % 强制Big大小的绝对值（用于只有下标的巨算符）
+\newcommand{\Bnorm}[1]{\ensuremath{\Big\| #1 \Big\|}}                   % 强制Big大小的范数（用于只有下标的巨算符）
+\newcommand{\lrangle}[1]{\left\langle #1 \right\rangle}                 % 自适应大小的尖括号（用于内积等）
+\newcommand{\seq}[2][n]{\ensuremath{#2_{1}, #2_{2}, \dots, #2_{#1}}}    % 用于生成x_1,x_2,...,x_n形式的列
+\newcommand{\baro}[1]{\overline{#1}}                                    % 生成长上横线
+\renewcommand{\emph}[1]{\textbf{#1}}                                    % 用于标记关键字
+
+% 常用符号的简化定义
+
+\newcommand{\degree}{\ensuremath{^{\circ}}}                             % 指角度
+\newcommand{\sm}{\ensuremath{\setminus}}                                % 指差集
+\newcommand{\weakto}{\ensuremath{\overset{w.}{\longrightarrow}}}        % 指弱收敛 weak convergent to
+\newcommand{\sweakto}{\ensuremath{\overset{\Star{w.}}{\longrightarrow}}}% 指弱*收敛 weak-star convergent to
+\newcommand{\norsub}{\triangleleft}                                     % 指正规子群或理想
+\newcommand{\tran}{\ensuremath{^\mathtt{T}}}                            % 指矩阵的转置
+
+\newcommand{\limit}[2]{\ensuremath{\lim\limits_{#1\to #2}}}             % 极限
+\newcommand{\Sum}[2]{\ensuremath{\sum\limits_{#1}^{#2}}}                % 求和
+\newcommand{\Prod}[2]{\ensuremath{\prod\limits_{#1}^{#2}}}              % 求积
+% 使用 mathtt 字族的符号定义
+
+\newcommand{\GL}{\ensuremath{\mathtt{GL}}}              % 一般线性群 general linear group
+\newcommand{\SL}{\ensuremath{\mathtt{SL}}}              % 特殊线性群 special linear group
+\newcommand{\SO}{\ensuremath{\mathtt{SO}}}              % 特殊正交群 special orthogonal group
+\newcommand{\SU}{\ensuremath{\mathtt{SU}}}              % 特殊幺正群 special unitary group
+\newcommand{\TO}{\ensuremath{\mathtt{O}}}               % 正交群 orthogonal group
+\newcommand{\TU}{\ensuremath{\mathtt{U}}}               % 幺正群 unitary group
+
+
+% 使用 mathbb 字族的符号定义
+\renewcommand{\C}{\ensuremath{\mathbb{C}}}                % 指复数域
+\newcommand{\D}{\ensuremath{\mathbb{D}}}                % 复平面上的单位圆盘
+\newcommand{\F}{\ensuremath{\mathbb{F}}}                % 泛指一般的数域或用于有限域\F_n中
+\renewcommand{\H}{\ensuremath{\mathbb{H}}}              % Hamilton四元数除环
+\newcommand{\J}{\ensuremath{\mathbb{J}}}                % 无理数集（非标准符号）
+\newcommand{\K}{\ensuremath{\mathbb{K}}}                % 实数域或复数域
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}                % 有理数域
+\newcommand{\R}{\ensuremath{\mathbb{R}}}                % 实数域
+\renewcommand{\S}{\ensuremath{\mathbb{S}}}              % 用于球面S^n
+\renewcommand{\T}{\ensuremath{\mathbb{T}}}                % 用于环面T^n
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}                % 整数环
+\newcommand{\Zo}{\ensuremath{\mathbb{Z}_{\geqslant 0}}} % 非负整数集
+\newcommand{\Zi}{\ensuremath{\mathbb{Z}_{\geqslant 1}}} % 正整数集
+
+
+% 使用 mathcal 字族的符号定义
+
+\newcommand{\CA}{\mathcal{A}}
+\newcommand{\CB}{\mathcal{B}}
+\newcommand{\CF}{\mathcal{F}}
+\newcommand{\CG}{\mathcal{G}}
+\newcommand{\CH}{\mathcal{H}}
+\newcommand{\CK}{\mathcal{K}}
+\newcommand{\CL}{\mathcal{L}}
+\newcommand{\CM}{\mathcal{M}}
+\newcommand{\CN}{\mathcal{N}}
+\newcommand{\CU}{\mathcal{U}}
+
+\newcommand{\Fs}{\ensuremath{\CF_{\sigma}}}             % F_sigma 集
+\newcommand{\Gd}{\ensuremath{\CG_{\delta}}}             % G_delta 集
+\newcommand{\Fr}{\ensuremath{\CF_{r}}}                  % 有限秩算子全体
+
+
+% 使用 mathfrak 字族的符号定义
+
+\newcommand{\FB}{\mathfrak{B}}                          % Borel代数
+\newcommand{\FL}{\mathfrak{L}}                          % Lebesgue可测代数
+
