@@ -1,0 +1,515 @@
+% !TeX root = ../main.tex
+\section{拓扑空间}
+\subsection{Euclid 空间与度量空间}
+
+    \begin{Definition}[度量空间]
+        设 $ X $ 是非空集合, $ d: X\times X\to [0, +\infty) $ 是一个二元函数, 且满足:
+        \begin{enumerate}
+            \item $ d(x, y)\geqslant 0 $, 且 $ d(x, y)=0 $ 当且仅当 $ x=y $;
+            \item $ d(x, y)=d(y, x) $;
+            \item $ d(x, z)\leqslant d(x, y)+d(y, z) $,
+        \end{enumerate}
+        则称 $ d $ 是一个\emph{度量}, $ (X, d) $ 是一个\emph{度量空间}.
+    \end{Definition}
+
+    Euclid 空间 $ \mathbb{E}^{n} $ 上可定义度量
+    \begin{align*}
+        d(x, y)=\left( \Sum{i=1}{n}\abs{x_{i}-y_{i}}^{2} \right)^{1/2},
+    \end{align*}
+    度量空间上可诱导开球
+    \begin{align*}
+        B(x_{0}, r)=\set{y\in X: d(x_{0}, y)<1}.
+    \end{align*}
+    因此度量空间上映射 $ f(x) $ 的连续性可由 $ \varepsilon-\delta $ 方式如下定义: 对 $ x_{0}\in X $, 若
+    \begin{align*}
+        \forall\varepsilon>0\,\exists \delta>0\,(f(B(x_{0}, \delta))\subset B(f(x_{0}), \varepsilon)),
+    \end{align*}
+    则称 $ f $ 在 $ x_{0} $ 处\emph{连续}. 若 $ f $ 在 $ X $ 的每一点都连续, 则称 $ f $ 是\emph{连续映射}.
+
+\subsection{拓扑(开集族)}
+    \begin{Definition}[拓扑空间]
+        设 $ X $ 是非空集合, $ \ST $ 是 $ X $ 的子集族, 若
+        \begin{enumerate}[($ \mathrm{O}_1 $), itemindent=2.5\parindent]
+            \item $ X\in\ST $, $ \varnothing\in\ST $,
+            \item 若 $ G_{1}, G_{2}\in\ST $, 则 $ G_{1}\cap G_{2}\in\ST $,
+            \item 设 $ I $ 是一个指标集, 若 $ \forall i\in I\,(G_{i}\in\ST) $, 那么 $ \bigcup_{i\in I}G_{i}\in\ST $.
+        \end{enumerate}
+        则称 $ \ST $ 是一个\emph{拓扑}, $ (X, \ST) $ 是一个\emph{拓扑空间}, $ \ST $ 中的元素称为 $ X $ 的\emph{开集}.
+    \end{Definition}
+    \begin{Example}
+        下面给出一些拓扑空间的例子:
+        \begin{enumerate}
+            \item 度量空间是拓扑空间, 度量诱导拓扑. 如 Euclid 空间 $ \mathbb{E}^{n} $, 赋范线性空间, 内积空间等. 
+            \item 平凡拓扑空间 $ (X, \ST_{T}) $, 这里 $ \ST_{T}=\set{X, \varnothing} $, 即只有两个平凡的开集.
+            \item 离散拓扑空间 $ (X, \ST_{D}) $, 这里 $ \ST_{D}=2^{X} $, 即 $ X $ 所有的子集都是开集.
+            \item 有限补拓扑空间 $ (X, \ST_{F}) $, 这里 $ \ST_{F}=\set{G\subset X: X\setminus G\in\fin X}\cup\set{\varnothing} $, 即所有补集为有限集的子集与空集都是开集.
+            \item 可数补拓扑空间 $ (X, \ST_{c}) $, 这里 $ \ST_{c}=\set{G\subset X: X\setminus G\in\mathrm{ctm}\,X}\cup\set{\varnothing} $, 即所有补集为可数集的子集与空集都是开集.
+        \end{enumerate}
+    \end{Example}
+
+\subsection{邻域, 邻域系}
+    \begin{Definition}[邻域, 邻域系]
+        设 $ (X, \ST) $ 是拓扑空间, $ x\in X $, $ N\subset X $. 若存在开集 $ G\in\ST $, 使得 $ x\in G\subset N $, 则称 $ N $ 是 $ x $ 的一个\emph{邻域}, 有时用 $ N_{x} $ 来强调, $ x $ 的邻域的全体称为 $ x $ 的\emph{邻域系}, 记作 $ \CN(x) $.
+    \end{Definition}
+
+    \begin{Proposition}\label{prop:开集与邻域}
+        开集是其中每个点的邻域, 即 $ G\in\ST $ 当且仅当对任意 $ x\in G $, 都有 $ G\in\CN(x) $.
+    \end{Proposition}
+    \begin{Proof}
+        \textsl{必要性}. 显然
+
+        \textsl{充分性}. 对任意 $ x\in G $, 都有
+        \begin{align*}
+            G\in\CN(x) & \Longrightarrow \exists V_{x}\in\ST\,(x\in V_{x}\subset G)\\
+            & \Longrightarrow G=\bigcup_{x\in G}\set{x}\subset \bigcup_{x\in G}V_{x}\subset G\\
+            & \Longrightarrow G=\bigcup_{x\in G}V_{x},
+        \end{align*}
+        由 $ V_{x}\in\ST $ 可知 $ G\in\ST $. \qed
+    \end{Proof}
+
+    \begin{Proposition}[邻域的性质]\label{prop:邻域的性质}
+        下面给出一些邻域的性质:
+        \begin{enumerate}
+            \item $ \forall x\in X\,(\CN(x)\neq\varnothing \land (N\in\CN(x)\Rightarrow x\in N)) $.
+            \item $ U,\ V\in\CN(x)\Rightarrow U\cap V\in\CN(x) $.
+            \item $ U\in\CN(x)\land U\subset V\Rightarrow V\in \CN(x) $.
+            \item $ \forall U\in\CN(x)\,\exists V\in\CN(x)\,(V\subset U\land \forall y\in V\,(V\in\CN(y))) $.
+        \end{enumerate}
+    \end{Proposition}
+    \begin{Proof}
+        (1) 因为 $ X\in\ST $ 是一个开集, 即 $ \forall x\in X\,(x\in\CN(x)\ne \varnothing) $.
+
+        (2) 由 $ U\in\CN(x) $ 知 $ \exists U_{x}\in\ST(x\in U_{x}\land U_{x}\subset U) $, 同理, $ \exists V_{x}\in\ST(x\in V_{x}\land V_{x}\subset V) $, 取 $ U_{x}\cap V_{x}\subset U\cap V $, 有 $ U_{x}\cap V_{x}\in\ST $, 且 $ x\in U_{x}\cap V_{x} $, 故 $ U\cap V\in \CN(x) $.
+
+        (3), (4) 读者自证. \qed 
+    \end{Proof}
+
+    \begin{Remark}
+        在 (4) 中 $ V $ 可取 $ U $ 中包含 $ x $ 的开集, 即任何点的任意邻域总包含一个开邻域. 因此若有必要, 总可以取开邻域. 
+    \end{Remark}
+
+    \begin{Theorem}[用邻域定义拓扑]
+        对任意 $ x\in X $, 指定 $ \CN(x) $ 为满足命题 \ref{prop:邻域的性质} 中 (1) -- (4) 的子集族, 则 $ X $ 有唯一一个拓扑 $ \ST $ 使得对任意 $ x\in X $, $ \CN(x) $ 恰为 $ x $ 在 $ \ST $  下的邻域系.
+    \end{Theorem}
+    \begin{Proof}
+        这里给出证明的思路:
+        \begin{enumerate}
+            \item 定义 $ \ST=\set{G\subset X: \forall x\in G\,(G\in\CN(x))} $,
+            \item 证明 $ \ST $ 是 $ X $ 的拓扑,
+            \item 设 $ x\in X $ 在 $ (X, \ST) $ 上的邻域系为 $ \Star{\CN}(x) $, 证明 $ \CN(x)=\Star{\CN}(x) $,
+            \item 证明这样的 $ \ST $ 是唯一的. 
+        \end{enumerate}
+    \end{Proof}
+
+\subsection{导集, 闭集, 闭包}
+    \begin{Definition}[聚点, 导集, 孤立点]
+        设 $ (X, \ST) $ 是一个拓扑空间, $ A\subset X,\ x\in X $, 若
+        \begin{align*}
+            \forall U\in\CN(x)\,(U\cap A\sm\set{x}\neq \varnothing),
+        \end{align*}
+        则称 $ x $ 是 $ A $ 中的一个\emph{聚点}, $ A $ 的聚点的全体构成的集合称为 $ A $ 的\emph{导集}, 记作 $ d(A) $, $ A\sm d(A) $ 中的元素称为 $ A $ 的\emph{孤立点}.
+    \end{Definition}
+
+    \begin{Remark}
+        (1) 若 $ x\in A $ 是孤立点, 则 $ \exists V\in \CN(x)\,(V\cap A=\set{x}) $.
+
+        (2) $ A $ 的聚点可以不属于 $ A $, 但孤立点一定属于 $ A $, 例如集合 $ A=(0, 1)\cup\set{3} $, 其中 $ 0, 1 $ 都是 $ A $ 的聚点, 但都不属于 $ A $, $ 3 $ 是 $ A $ 的孤立点, 它属于 $ A $. 
+    \end{Remark}
+
+    \begin{Example}
+        ~
+        \begin{enumerate}
+            \item 对于离散拓扑空间 $ X $ 中的集合 $ A $, $ A\subset X $, 则有 $ d(A)=\varnothing $, 因为对任意 $ x\in X $, 都有 $ \set{x}\in\CN(x) $, 但是
+            \begin{align*}
+                \set{x}\cap A\sm\set{x}=\varnothing,
+            \end{align*}
+            于是 $ d(A)=\varnothing $.
+            \item 对于平凡拓扑空间 $ X $ 中的集合 $ A $, $ A\subset X $,
+            \begin{enumerate}[(i)]
+                \item 若 $ A=\varnothing $, 则 $ d(A)=\varnothing $.
+                \item 若 $ A=\set{x_{0}} $ 为单点集, 则 $ d(A)=X\sm A $, 因为对任意 $ x\in X \land x\ne x_{0} $, 都有 $ \set{X}=\CN(x) $, 故
+                \begin{align*}
+                    X\cap (A\sm \set{x})=A\ne \varnothing,
+                \end{align*}
+                这说明 $ x\in d(A) $, 而 $ x=x_{0} $ 时, $ A\sm\set{x_{0}}=\varnothing $, 故 $ X\cap (A\sm \set{x_{0}})=\varnothing $, 即 $ x_{0}\notin d(A) $, 由 $ x $ 的任意性, $ d(A)=X\sm A $.
+                \item 若 $ A $ 中含有多个点, 则 $ d(A)=X $. 因为对任意 $ x\in X $, 都有 $ \set{X}=\CN(x) $, 那么由
+                \begin{align*}
+                    X\cap (A\sm\set{x})\ne \varnothing
+                \end{align*}
+                可知 $ x\in d(A) $, 由 $ x $ 的任意性, $ d(A)=X $.
+            \end{enumerate}
+        \end{enumerate}
+    \end{Example}
+
+    \begin{Proposition}[导集的性质]
+        对任意 $ A, B\subset X $, 有:
+        \begin{enumerate}
+            \item $ d(\varnothing)=\varnothing $,
+            \item $ A\subset B\Longrightarrow d(A)\subset d(B) $,
+            \item $ d(A\cup B)=d(A)\cup d(B) $,
+            \item $ d(d(A))\subset A\cup d(A) $.
+        \end{enumerate}
+    \end{Proposition}
+    \begin{Proof}
+        (1) -- (3) 显然. 
+
+        (4) 对任意 $ x\in d(d(A)) $, 用反证法, 如果 $ x\notin d(A)\land x\notin A $, 则存在 $ U_{0}\in \CN(x) $ 是开邻域, 使得
+        \begin{align}\label{eq:导集的性质(4)}
+            U_{0}\cap(A\sm\set{x})=U_{0}\cap A=\varnothing,
+        \end{align}
+        又因为 $ x\in d(d(A)) $, 对上述 $ U_{0} $, 应有
+        \begin{align*}
+            U_{0}\cap(d(A)\sm\set{x})=U_{0}\cap d(A)\ne \varnothing,
+        \end{align*}
+        故可以取 $ y\in U_{0}\cap d(A) $, 那么 $ U_{0}\in \CN(y) $, 且 $ U_{0}\cap(A\sm\set{y})\ne \varnothing $, 这与等式 \eqref{eq:导集的性质(4)} 矛盾, 故 $ x\in A $ 或 $ x\in d(A) $, 即 $ d(d(A))\subset A\cup d(A) $.\qed
+    \end{Proof}
+
+    \begin{Definition}[闭集]
+        设 $ A\subset X $, 若 $ d(A)\subset A $, 则称 $ A $ 是\emph{闭集}, 并记 $ X $ 中闭集全体为 $ \SF $. 
+    \end{Definition}
+    
+    \begin{Example}
+        ~
+        \begin{enumerate}
+            \item 离散拓扑空间中, 任何子集都是闭集, 再由定义可知任何子集既开且闭. 
+            \item 平凡拓扑空间中, 除 $ \varnothing $ 与 $ X $ 外都不是闭集. 
+            \item \R 中 Cantor 集 $ \mathbb{G} $ 是闭集.
+        \end{enumerate}
+    \end{Example}
+
+    \begin{Theorem}[开集与闭集的对偶]
+        设 $ F\subset X $, 则 $ F $ 是闭集当且仅当 $ X\sm F $ 为开集. 
+    \end{Theorem}
+    \begin{Proof}
+        \textsl{必要性}. 
+        \begin{align*}
+            F\in\SF & \Longrightarrow d(F)\subset F\Longleftrightarrow F^{c}\subset (d(F))^{c}\\
+            & \Longrightarrow \forall x\in F^{c}\,(x\in(d(F))^{c})\\
+            & \Longrightarrow \exists U_{0}\in\CN(x)\,(U_{0}\cap (F\sm\set x)=U_{0}\cap F=\varnothing)\\
+            & \Longrightarrow U_{0}\subset F^{c}\\
+            & \Longrightarrow F^{c}\in\ST
+        \end{align*}
+
+        \textsl{充分性}. 
+        \begin{align*}
+            F^{c}\in\ST & \Longrightarrow \forall x\in F^{c}\,(F^{c}\in\CN(x))\\
+            & \Longrightarrow (F^{c}\cap(F\sm\set{x})\subset F^{c}\cap F=\varnothing)\land (F^{c}\in\CN(x))\\
+            & \Longrightarrow x\in(d(F))^{c}\Longrightarrow F^{c}\subset(d(F))^{c}\\
+            & \Longrightarrow d(F)\subset F\Longrightarrow F\in \SF
+        \end{align*}
+        证明中均用到了命题 \ref{prop:开集与邻域}.\qed
+    \end{Proof}
+
+    \begin{Remark}
+        有时也将 $ F^{c}\in\ST $ 作为闭集的定义.
+    \end{Remark}
+
+    \begin{Proposition}[闭集的性质]
+        ~
+        \begin{enumerate}[$ (\mathrm{F}_1) $, itemindent=2.5\parindent]
+            \item $ X\in\SF,\ \varnothing\in\SF $,
+            \item 若 $ F_{1},\ F_{2}\in\SF $, 则 $ F_{1}\cup F_{2}\in\SF $,
+            \item 设 $ I $ 是一个指标集, 若 $ \forall i\in I\,(F_{i}\in\SF) $, 则 $ \bigcap_{i\in I}F_{i}\in\SF $.
+        \end{enumerate}
+    \end{Proposition}
+
+    \begin{Definition}[闭包]
+        设 $ A\subset X $, 称 $ \bar{A}=\mathrm{cl}(A)=A\cup d(A) $ 为 $ A $ 的\emph{闭包}.
+    \end{Definition}
+    
+    \begin{Remark}
+        至此, 开集, 邻域, 孤立点, 聚点, 导集, 闭集, 闭包都依赖于给定的拓扑, 称这一类概念为拓扑的概念.
+    \end{Remark}
+
+    \begin{Proposition}
+        $ x\in\bar{A}\Longleftrightarrow \forall U\in \CN(x)\,(U\cap A\ne \varnothing) $.
+    \end{Proposition}
+
+    \begin{Theorem}[用闭包刻画闭集]
+        设 $ A\subset X $, 则 $ A\in\SF\Longleftrightarrow A=\bar{A} $.
+    \end{Theorem}
+
+    \begin{Proposition}[闭包的性质]
+        不加证明地给出闭包的一些性质.
+        \begin{lpbn}(2)
+            \task $ \bar{\varnothing}=\varnothing $,
+            \task $ A\subset \bar{A} $,
+            \task $ \baro{A\cup B}=\bar{A}\cup \bar{B} $,
+            \task $ \bar{\bar{A}}=\bar{A} $.
+        \end{lpbn}
+    \end{Proposition}
+
+    \begin{Corollary}[闭包的闭性]
+        $ \bar{A} $ 是闭集. 
+    \end{Corollary}
+
+    \begin{Theorem}[闭包的刻画]
+        对任意 $ A\subset X $, 都有 $ \bar{A}=\bigcap_{B\in\SF, A\subset B}B $, 即 $ \bar{A} $ 是包含 $ A $ 的最小闭集. 
+    \end{Theorem}
+    \begin{Proof}
+        因为对任意 $ B\in\SF $, 都有 $ A\subset B $, 由闭包的性质可知 $ \bar{A}\subset\bar{B}=B $, 从而
+        \begin{align*}
+            \bar{A}\subset\bigcap_{B\in\SF, A\subset B} B,
+        \end{align*}
+        而由 $ \bar{A}\in \SF $, 而 $ A\subset \bar{A} $, 故
+        \begin{align*}
+            \bigcap_{B\in\SF, A\subset B} B\subset\bar{A},
+        \end{align*}
+        于是 $ \bar{A}=\bigcap_{B\in\SF, A\subset B} B $.\qed
+    \end{Proof}
+
+    \begin{Definition}[闭包算子 (Kuratowski 闭包公理)]
+        定义 $ \Star{c}:2^{X}\to 2^{X} $ 如下: 对任意 $ A, B\in 2^{X} $, 满足
+        \begin{lpbn}(2)
+            \task $ \Star{c}(\varnothing)=\varnothing $,
+            \task $ A\subset\Star{c}(A) $,
+            \task $ \Star{c}(A\cup B)=\Star{c}(A)\cup\Star{c}(B) $,
+            \task $ \Star{c}(\Star{c}(A))=\Star{c}(A) $.
+        \end{lpbn}
+        则称 $ \Star{c} $ 为 $ X $ 上的\emph{闭包算子}.
+    \end{Definition}
+
+    \begin{Theorem}[Kuratowski 闭包公理, 用闭包公理定义拓扑]
+        设 $ \Star{c} $ 为 $ X $ 上的闭包算子, 则 $ X $ 上存在一个拓扑 $ \ST $, 使得对 $ (X, \ST) $ 中的任何 $ A\subset X $, 都有 $ \Star{c}(A)=\bar{A} $.
+    \end{Theorem}
+    \begin{Proof}
+        这里给出证明的思路:
+        \begin{enumerate}
+            \item 定义 $ \ST:=\set{A\subset X: \Star{c}(A^{c})=A^{c}} $,
+            \item 证明 $ \ST $ 是 $ X $ 上的拓扑, 
+            \item 若有 $ X $ 上的拓扑 $ \Star{\ST} $, 使得 $ \baro{A^{\Star{\ST}}}=\Star{c}(A) $, 则必有 $ \Star{\ST}=\ST $, 其中 $ \baro{A^{\Star{\ST}}} $ 表示拓扑 $ \Star{\ST} $ 下的 $ A $ 的闭包.\qed
+        \end{enumerate}
+    \end{Proof}
+
+    \begin{Example}[度量空间上的导集与闭包]
+        ~
+        \begin{enumerate}
+            \item 在度量空间 $ (X, d) $ 中, $ x\in X $, $ A\subset X $, $ A\ne \varnothing $, 点 $ x $ 到集合 $ A $ 的距离定义为:
+            \begin{align*}
+                d(x, A)=\inf_{y\in A}d(x, y),    
+            \end{align*}
+            \item 设 $ A\subset X $, 则
+            \begin{align*}
+                x\in d(A) & \Longleftrightarrow d(x, A\sm\set{x})=0,\\
+                x\in \bar{A} & \Longleftrightarrow d(x, A)=0,
+            \end{align*}
+            其中后者因为
+            \begin{align*}
+                d(x, A)=0 & \Longleftrightarrow \forall\varepsilon>0\,\exists y\in A\,(d(x, y)<\varepsilon)\\
+                & \Longleftrightarrow \forall\varepsilon>0\,\exists y\in A(y\in B(x, \varepsilon))\\
+                & \Longleftrightarrow \forall \varepsilon>0\,(A\cap B(x, \varepsilon)\neq \varnothing)\\
+                & \Longleftrightarrow \forall U\in\CN(x)\,(U\cap A\neq \varnothing)\\
+                & \Longleftrightarrow x\in \bar{A}
+            \end{align*}
+        \end{enumerate}
+    \end{Example}
+
+\subsection{内点, 内部}
+    \begin{Definition}[内点, 内部]
+        设 $ X $ 是拓扑空间, $ x\in X,\ A\subset X $. 若 $ A $ 是 $ x $ 的邻域, 则称 $ x $ 是 $ A $ 的\emph{内点}. $ A $ 内点的全体称为 $ A $ 的\emph{内部}, 记作 $ \mathring{A} $ 或 $ \mathrm{Int}(A) $, 也即
+        \begin{align*}
+            x\in\mathring{A}\Longleftrightarrow A\in\CN(x),\qquad x\in\mathring{A}\Longrightarrow x\in A.
+        \end{align*}
+    \end{Definition}
+
+    \begin{Theorem}[内部与闭包的对偶]
+        设 $ X $ 是拓扑空间, $ A\subset X $, 则
+        \begin{enumerate}
+            \item $ A^{\circ c}=A^{c-} $ 或 $ A^{\circ}=A^{c-c} $, 其中 $ A^{\circ c}=(\mathring{A})^{c} $, $ A^{c-}=\baro{A^{c}} $, 其余类似,
+            \item $ A^{-c}=A^{c\circ} $ 或 $ A^{-}=A^{c\circ c} $.
+        \end{enumerate}
+    \end{Theorem}
+    \begin{Proof}
+        (1)  由闭包的定义: $ x\in\bar{A}\Longleftrightarrow \forall U\in\CN(x)\,(U\cap A\neq \varnothing) $, 与内点的定义: $ x\in\mathring{A}\Longleftrightarrow A\in\CN(x) $, 可知
+        \begin{align*}
+            (x\in\mathring{A}\Leftrightarrow A\in\CN(x))\land (A\cap \mathring{A}=\varnothing)\Longrightarrow x\notin \baro{A^{c}}.
+        \end{align*}
+        即有 $ A\degree\Longrightarrow x\notin A^{c-} $, 即 $ x\in A\degree\Longrightarrow x\in A^{c-c} $, 从而 $ A\degree\subset A^{c-c} $, 再证反向不等式:
+        \begin{align*}
+            x\in A^{c-c} & \Longrightarrow x\notin A^{c-}\\
+            & \Longrightarrow \exists U\in\CN(x)\,(U\cap A^{c}=\varnothing)\land U\subset A\\
+            & \Longrightarrow A\in \CN(x)\\
+            & \Longrightarrow x\in A\degree,
+        \end{align*}
+        即 $ A^{c-c}\subset A\degree $, 故 $ A\degree=A^{c-c} $.
+
+        (2) 对 (1) 取余即可. \qed
+    \end{Proof}
+
+    \begin{Theorem}[用内部刻画开集]
+        设 $ X $ 是拓扑空间, $ A\subset X $, 则
+        \begin{align*}
+            A\in\ST\Longleftrightarrow A=\mathring{A}.
+        \end{align*}
+    \end{Theorem}
+    \begin{Proof}
+        因为
+        \begin{align*}
+            A\in\ST & \Longleftrightarrow A^{c}\in \SF\\
+            & \Longleftrightarrow A^{c}=A^{c-}\Longleftrightarrow A=A^{c-c}\Longleftrightarrow A=A^{\circ}.
+        \end{align*}
+        \qed 
+    \end{Proof}
+
+    \begin{Proposition}[内部的性质]
+        设 $ X $ 是拓扑空间, $ A, B\subset X $, 有
+        \begin{lpbn}(2)
+            \task $ X\degree =X $,
+            \task $ A\degree\subset A $,
+            \task $ (A\cap B)\degree=A\degree\cap B\degree $,
+            \task $ A^{\circ\circ}=A\degree $.
+        \end{lpbn}
+    \end{Proposition}
+
+    \begin{Corollary}[内部的开性]
+        $ \mathring{A} $ 是开集. 
+    \end{Corollary}
+
+    \begin{Theorem}[内部的刻画]
+        对任意 $ A\subset X $, $ \mathring{A}=\bigcup_{B\in\ST, B\subset A} B $, 即 $ \mathring{A} $ 是包含于 $ A $ 的最大开集. 
+    \end{Theorem}
+
+    \begin{Remark}
+        类似于闭包算子, 也可以定义内部算子, 并由此定义 $ X $ 的拓扑. 也可以用开集族, 邻域系, 闭包算子, 内部算子等不同形式定义同一个拓扑. 
+    \end{Remark}
+
+    \begin{Definition}[边界点]
+        对任意的 $ A\subset X $, $ x\in X $, 若
+        \begin{align*}
+            \forall U\in\CN(x)\,(U\cap A\neq \varnothing\land U\cap A^{c}\neq \varnothing),
+        \end{align*}
+        则称 $ x $ 是 $ A $ 的\emph{边界点}, $ A $ 的边界点的全体称为 $ A $ 的\emph{边界}, 记作 $ \partial A $ 或 $ \mathrm{Bd}(A) $.
+    \end{Definition}
+
+    \begin{Remark}
+        $ A $ 的边界点可以属于 $ A $ 也可以不属于 $ A $, 例如 $ \R^{1} $ 上 $ \partial \Q=\R $.
+    \end{Remark}
+
+    \begin{Proposition}[闭包, 内部与边界的关系]
+        设 $ X $ 是拓扑空间, $ A\subset X $, 则
+        \begin{enumerate}
+            \item $ A^{-}=A^{c\circ c}=A\degree\cup \partial A $,
+            \item $ A\degree=A^{c-c}=A^{-}\sm\partial A $,
+            \item $ \partial A=A^{-}\cap A^{c-}=(A\degree\cup A^{c\circ})^{c}=\partial(A^{c}) $.
+        \end{enumerate}
+    \end{Proposition}
+
+\subsection{基, 子基}
+    我们希望用尽可能少的开集来实现拓扑的功能, 用 ``基'' 来 ``生成'' 拓扑空间, 不同定义拓扑的方式有不同的 ``基''. 主要研究开集族和邻域系.
+
+    \begin{Definition}[基(开集语言)]
+        设 $ (X, \ST) $ 是拓扑空间, $ \CB\subset\ST $, 若
+        \begin{align*}
+            \forall G\in\ST\,\exists\set{A_{i}}_{i\in I}\subset\CB\,\left( G=\bigcup_{i\in I}A_{i} \right),
+        \end{align*}
+        其中 $ I $ 为任意指标集, 则称 $ \CB $ 为拓扑 $ \ST $ 的\emph{基}, 上式也可以等价地写成
+        \begin{align*}
+            \forall G\in\ST\,\forall x\in G\,\exists A\in\CB\,(x\in A\subset G).
+        \end{align*}
+    \end{Definition}
+    
+    \begin{Theorem}[基(开集语言 $ \Longleftrightarrow $ 邻域语言)]
+        设 $ X $ 是拓扑空间, 则 $ \CB $ 是基当且仅当
+        \begin{align*}
+            \forall x\in X\,\forall U_{x}\in\CN(x)\,\exists A\in\CB\,(x\in A\subset G).
+        \end{align*}
+    \end{Theorem}
+    \begin{Proof}
+        \textsl{必要性}.
+        \begin{align*}
+            & \forall x\in X\,\forall U_{x}\in\CN(x)\,\exists V_{x}\in\CN(x)\,(V_{x}\subset U_{x}\land V_{x}\in\ST)\\
+            \Longrightarrow{} & \exists \set{A_{i}}_{i\in I}\,\left(x\in V_{x}=\bigcup_{i\in I}A_{i} \right)\\
+            \Longrightarrow{} & \exists i_{0}\in I\, G_{x}=A_{i_{0}}\in\CB\,\left(x\in G_{x}\subset \bigcup_{i\in I}A_{i}=V_{x}\subset U_{x} \right)
+        \end{align*}
+
+        \textsl{充分性}.
+        \begin{align*}
+            \forall G\in\ST\,\forall x\in G\,(G\in\CN(x)) & \Longrightarrow \exists V_{x}\in\CB\,(x\in V_{x}\subset G)\\
+            & \Longrightarrow G=\bigcup_{x\in G}\set{x}\subset \bigcup_{x\in G}V_{x}\subset G\\
+            & \Longrightarrow G=\bigcup_{x\in G}V_{x},
+        \end{align*}
+        故 $ \CB $ 是 $ \ST $ 的一个基.\qed
+    \end{Proof}
+
+    \begin{Example}
+        度量空间 $ (X, d) $ 中, 球形邻域全体构成一个基:
+        \begin{align*}
+            \CB=\set{B(x, r): x\in X,r\in\R_{+}},
+        \end{align*}
+        特别地, 开区间全体构成 $ \R^{1} $ 的一个基. 
+    \end{Example}
+
+    \begin{Theorem}[基的判别准则]
+        设 $ \CB\in 2^{X} $, 若 $ \CB $ 满足:
+        \begin{enumerate}
+            \item $ \bigcup_{B\in\CB}B=X $,
+            \item $ \forall B_{1}, B_{2}\in\CB\,\forall x\in B_{1}\cap B_{2}\,\exists B\in\CB\,(x\in B\subset B_{1}\cap B_{2}) $,
+        \end{enumerate}
+        则
+        \begin{align*}
+            \ST = \set{G\subset X: \exists \CB_{*}\subset \CB, G=\bigcup_{B\in \CB_{*}}B}
+        \end{align*}
+        是 $ X $ 上唯一一个以 $ \CB $ 为基的拓扑.
+
+        反之, 若 $ \CB $ 是 $ X $ 的基, 则 $ \CB $ 必满足 (1) 与 (2).
+    \end{Theorem}
+
+    \begin{Definition}[子基]
+        设 $ (X, \ST) $ 是拓扑空间, $ \CB $ 是 $ X $ 的一个基, 设 $ I $ 是任意有限指标集, $ \CS\subset\ST $ 满足:
+        \begin{align*}
+            \CB=\set{\bigcap_{i\in I}S_{i}: \set{S_{i}}_{i\in I}\subset\CS}
+        \end{align*}
+        则称 $ \CS $ 是拓扑 $ \ST $ 的\emph{子基}.
+    \end{Definition}
+
+    \begin{Example}
+        $ \CS=\set{(a, +\infty): a\in\R}\cup \set{(-\infty, b): b\in \R} $ 是 $ \R $ 的一个子基. 
+    \end{Example}
+
+    \begin{Theorem}[子基的判别准则]
+        设 $ \CS\in 2^{X} $, 若 $ \bigcup_{S\in\CS}S=X $, 则 $ X $ 上存在唯一一个拓扑 $ \ST $ 以 $ \CS $ 为子基, 且若令
+        \begin{align*}
+            \CB=\set{\bigcap_{i\in I}S_{i}: \set{S_{i}}_{i\in I}\subset \CS},
+        \end{align*}
+        其中 $ I $ 是任意有限指标集, 则 $ \ST=\set{\bigcup_{B\in \CB_{*}}B: \CB_{*}\subset\CB} $.
+    \end{Theorem}
+
+    \begin{Definition}[邻域基与邻域子基]
+        设 $ X $ 是拓扑空间, $ x\in X $, $ \CB(x), \CS(x)\subset \CN(x) $,
+        \begin{enumerate}
+            \item 称 $ \CB(x) $ 是\emph{邻域基}, 若 $ \CB(x) $ 是邻域系 $ \CN(x) $ 的基, 即
+            \begin{align*}
+                \forall U\in\CN(x)\,\exists V\in\CB(x)\,(x\in V\subset U),
+            \end{align*}
+            \item 称 $ \CS(x) $ 是\emph{邻域子基}, 若 $ \CS(x) $ 是 $ \CN(x) $ 的子基, 即 $ \CS(x) $ 中非空有限子族的交构成的集合恰为 $ x $ 的邻域基 $ \CB(x) $.
+        \end{enumerate}
+    \end{Definition}
+
+    \begin{Example}
+        在度量空间 $ (X, d) $ 上, 以某点为中心的球形邻域的全体是该点的一个邻域基, 即
+        \begin{align*}
+            \CB(x)=\set{B(x, r): r\in\R_{+}},
+        \end{align*}
+        以有理数为半径的球形邻域也是一个邻域基, 即
+        \begin{align*}
+            \CB(x)=\set{B(x, r): r\in\Q_{+}}.
+        \end{align*}
+    \end{Example}
+    
+    \begin{Theorem}[基与子基产生的邻域基与邻域子基的刻画]
+        设 $ X $ 是拓扑空间, $ x\in X $
+        \begin{enumerate}
+            \item 若 $ \CB $ 是 $ X $ 的基, 则
+            \begin{align*}
+                \CB(x)=\set{B\in\CB: x\in B}
+            \end{align*}
+            是 $ x $ 的一个邻域基. 
+            \item 若 $ \CS $ 是 $ X $ 的子基, 则
+            \begin{align*}
+                \CS(x)=\set{S\in \CS: x\in S}
+            \end{align*}
+            是 $ x $ 的一个邻域子基. 
+        \end{enumerate}
+        
+        即: 邻域(子)基是拓扑(子)基的局部化.
+    \end{Theorem}

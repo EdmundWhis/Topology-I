@@ -21,10 +21,11 @@
 \normalspacedchars{*}
 %数学式
 \RequirePackage{mathtools,extarrows, unicode-math} %数学式宏包, 更多箭头, 黑板体等数学字体,leqslant等符号
-\unimathsetup{bold-style=ISO}
+\unimathsetup{bold-style=ISO, math-style=TeX}
 \setmathfont{latinmodern-math.otf}[]
 \setmathfont{texgyrepagella-math.otf}[range=bb]
-\setmathfont{XITSMath-Regular.otf}[range={"02205, "029F5}]	% 将空集, 差集符号字体设置为 XITS
+\setmathfont{XITSMath-Regular.otf}[range={"02205, "029F5, scr}]	% 将空集, 差集符号字体设置为 XITS
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 \RequirePackage{siunitx}
 \RequirePackage{amsthm} %定理环境
 \numberwithin{equation}{section}
@@ -103,7 +104,7 @@
 \RequirePackage[colorlinks, linkcolor=Mizuasagi, citecolor=Mizuasagi]{hyperref}
 \RequirePackage{graphicx}
 % 图片默认位置
-\graphicspath{{figure/}}
+\graphicspath{{figures/}}
 \renewcommand{\C}{\ensuremath{\mathbb{C}}} 
 %浮动体
 \RequirePackage{caption} %使用浮动体标题
@@ -157,8 +158,8 @@
 % \newtheorem{Definitionn}{定义}
 % \renewcommand{\theDefinitionn}{\theMA$'$}
 \newtheorem{Corollary}[topo]{推论}
-% \newtheorem{Example}[MA]{例}
-\newtheorem{Remark}{注}
+\newtheorem{Example}[topo]{例}
+\newtheorem*{Remark}{注}
 \newtheorem{Proposition}[topo]{命题}
 % \newtheorem{Exercise}[Ex]{练习题}
 % \newtheorem{Question}[Qu]{问题}
