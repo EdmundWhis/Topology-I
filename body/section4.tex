@@ -1,0 +1,336 @@
+% !TeX root = ../main.tex
+% This is section 4.
+
+\section{连通性}
+
+\subsection{连通空间}
+
+    \begin{Definition}[隔离集]
+        设 $ (X,\ST) $ 是一个拓扑空间, $ A, B\subset X $, 若
+        \[
+            (A\cap\bar{B})\cup(\bar{A}\cap B)=\varnothing,
+        \]
+        则称 $ A $ 与 $ B $ 是\emph{隔离}的.
+    \end{Definition}
+
+    \begin{Definition}[连通空间]
+        若存在 $ X $ 中的一对非空隔离集 $ A, B $ 使得 $ X=A\cup B $, 即全空间可以被分解味两个隔离集的并, 则称 $ X $ 不连通. 否则称 $ X $ 是一个\emph{连通空间}, 即 $ X $ 连通当且仅当它不可被分解味非空隔离集的并.
+        \begin{enumerate}
+            \item 若 $ Y\subset X $ 作为 $ X $ 的子空间连通, 则称 $ Y $ 是 $ X $ 的连通子集;
+            \item 隔离性与连通性都依赖于具体的拓扑.
+        \end{enumerate}
+    \end{Definition}
+
+    \begin{Example}~
+        \begin{enumerate}
+            \item 平凡拓扑空间总是连通的, 这因平凡拓扑空间中任意两个非空子集都不隔离. 为此不妨设 $ A, B $ 是平凡拓扑空间 $ (X,\ST_T) $ 中的集合, 由
+            \[
+                \forall A\subset X,\ A\ne\varnothing\,(d(A)=X\sm A\lor d(A)=X)\Longrightarrow \bar{A}=X
+            \]
+            可知 $ A\cap\bar{B} $ 和 $ \bar{A}\cap B $ 总是非空的.
+            \item 多于一点的离散拓扑空间一定不连通, 这因离散拓扑空间中任意两个不交子集都是隔离的. 为此不妨设 $ A, B $ 是离散拓扑空间 $ (X,\ST_D) $ 中的集合, 由
+            \[
+                \forall A\subset X,\ A\ne\varnothing\,(d(A)=\varnothing)\Longrightarrow \bar{A}=A
+            \]
+            可知当 $ A\cap B=\varnothing $ 且 $ X=A\cup B $ 时总有 $ (\bar{A}\cap B)\cup(A\cap\bar{B})=\varnothing $.
+        \end{enumerate}
+    \end{Example}
+
+    \begin{Proposition}\label{prop:不连通空间的等价刻画}
+        这一命题给出不连通空间的等价刻画, 以下条件等价:
+        \begin{enumerate}
+            \item $ X $ 是不连通空间;
+            \item $ X $ 可以表成两个不交非空闭集的并;
+            \item $ X $ 可以表成两个不交非空开集的并;
+            \item $ X $ 中存在既开又闭的非空真子集.
+        \end{enumerate}
+    \end{Proposition}
+    \begin{Proof}
+        (1) $ \Rightarrow $ (2) : 由不连通的定义, 存在非空的 $ A, B\subset X $ 使得 $ A, B $ 隔离, 且 $ X=A\cup B $, 则
+        \[
+            A\cap B\subset\bar{A}\cap B=\varnothing,
+        \]
+        又因为
+        \[
+            \bar{B}=\bar{B}\cap X=\bar{B}\cap(A\cup B)=(\bar{B}\cap A)\cup(\bar{B}\cap B)=B,
+        \]
+        即 $ B $ 是闭的. 同理 $ A $ 也是闭的.
+
+        (2) $ \Rightarrow $ (3) : 由 $ X=A\cup B $ 且 $ A, B $ 隔离可知 $ B=A^c,\ A=B^c $. 因此 $ A, B $ 都是开集.
+
+        (3) $ \Rightarrow $ (4) : 由(2)推(3)的过程可知 $ A, B $ 是既开又闭的真子集.
+
+        (4) $ \Rightarrow $ (1) : 设 $ A\subset X,\ A\ne\varnothing $ 是既开又闭的真子集, 取 $ B=A^c $ 也是既开又闭的真子集, 则有 $ X=A\cup B $. 而由
+        \[
+            (\bar{A}\cap B)\cup(A\cap\bar{B})=(A\cap B)\cup(A\cap B)=\varnothing
+        \]
+        可知 $ A, B $ 隔离, 于是 $ X $ 不连通.\qed
+    \end{Proof}
+
+    \begin{Corollary}
+        这一推论给出连通空间的等价刻画, 以下条件等价:
+        \begin{enumerate}
+            \item $ X $ 是连通空间;
+            \item $ X $ 不可表为两个不交非空闭集的并;
+            \item 只有 $ \varnothing $ 和 $ X $ 在 $ X $ 中既开又闭;
+            \item 不存在连续满射 $ f : X\to\S^0=\{-1,1\}\subset\R $.
+        \end{enumerate}
+    \end{Corollary}
+    \begin{Proof}
+        只证明(1)和(4)的等价性, 其余由命题 \ref{prop:不连通空间的等价刻画} 显然.
+
+        (1) $ \Rightarrow $ (4) : 若存在连续满射 $ f : X\to\S^0 $, 则
+        \[
+            X=f^{-1}(\S^0)=f^{-1}(-1)\amalg f^{-1}(1)
+        \]
+        是两个不交非空开集的并, 矛盾.
+
+        (4) $ \Rightarrow $ (1) : 若 $ X $ 不连通, 则存在隔离的 $ A, B $, 定义
+        \[
+            f : X\to\S^0,\qquad x\mapsto\begin{cases}
+                -1 & ,x\in A\\ 1 & ,x\in B
+            \end{cases}
+        \]
+        后 $ f $ 是一连续满射, 矛盾.\qed
+    \end{Proof}
+
+    尽管以上命题的 (4) 看起来有许多人工雕琢的痕迹, 但应用于实际操作中非常好用. 在接下来的一小节中有关连通集性质的证明大多是通过 (4) 来完成的.
+
+    \begin{Example}
+        带有标准度量结构的 $ \R $ 是连通空间, 而带有标准度量结构的 $ \Q $ 是 $ \R $ 的不连通子集.
+    \end{Example}
+    \begin{Proof}
+        若存在连续满射 $ f : \R\to\S^0 $, 取 $ a\in f^{-1}(-1) $ 和 $ b\in f^{-1}(1) $, 并不妨 $ a<b $, 令 $ A=f^{-1}(-1)\cap[a,b] $ 而 $ c=\sup A $, 则 $ A $ 是 $ [a,b] $ 的闭子集, $ c\in A $, $ c<b $. 另一方面 $ A $ 又是 $ [a,b] $ 的开子集, 于是
+        \[
+            \exists\delta>0\,(B(c,\delta)\cap[a,b]\subset A),
+        \]
+        与 $ c=\sup A $ 矛盾.
+
+        而对 $ \Q\subset\R $, 注意到
+        \[
+            \forall i\in\R\sm\Q\,(\varnothing\ne(-\infty,i)\cap\Q\subset\Q)
+        \]
+        且 $ (-\infty,i)\cap\Q $ 是开集, 而
+        \[
+            (-\infty,i)\cap\Q=(-\infty,i]\cap\Q,
+        \]
+        其中后者为闭集, 于是 $ (-\infty,i)\cap\Q $ 既开又闭, 从而 $ \Q $ 不连通.\qed
+    \end{Proof}
+
+    \begin{Proposition}[相对拓扑的隔离性]\label{prop:相对拓扑的隔离性}
+        设 $ Y\subset X $ 且 $ A, B\subset Y $, 则 $ A, B $ 在 $ Y $ 中隔离当且仅当 $ A, B $ 在 $ X $ 中隔离.
+    \end{Proposition}
+
+\subsection{连通集的性质}
+
+    \begin{Proposition}
+        连通集不能横跨一对隔离集. 设 $ Y\subset X $ 连通, 若存在 $ X $ 的非空子集 $ A, B $ 隔离, 且 $ Y\subset A\cup B $, 则 $ Y\subset A $ 或者 $ Y\subset B $.
+    \end{Proposition}
+    \begin{Proof}
+        由命题 \ref{prop:相对拓扑的隔离性} 可知 $ A\cap Y $ 和 $ B\cap Y $ 隔离, 又因为
+        \[
+            (A\cap Y)\cup(B\cap Y)=(A\cup B)\cap Y=Y,
+        \]
+        故只能 $ A\cap Y=\varnothing $ 或者 $ B\cap Y=\varnothing $.\qed
+    \end{Proof}
+
+    \begin{Proposition}
+        夹在连通集及其闭包间的集合仍连通. 设 $ Y\subset X $ 连通, $ Z\subset X $ 满足 $ Y\subset Z\subset \bar{Y} $, 则 $ Z $ 也是连通的.
+    \end{Proposition}
+    \begin{Proof}
+        设 $ f : Z\to\S^0 $ 连续, 由 $ Y $ 的连通性可知 $ f(Y)=\{-1\} $ 或者 $ f(Y)=\{1\} $. 不妨设 $ Y\subset f^{-1}(1) $, 在其两侧取关于 $ Z $ 的闭包后有
+        \[
+            Z=\bar{Y}\cap Z=\baro{Y}^Z\subset\baro{f^{-1}(1)}^Z,
+        \]
+        而 $ f^{-1}(1) $ 是 $ Z $ 中的闭集, 故 $ Z\subset f^{-1}(1) $. 这说明 $ f : Z\to\S^0 $ 不可能是满射.\qed
+    \end{Proof}
+
+    \begin{Corollary}
+        连通集的闭包是连通的.
+    \end{Corollary}
+
+    \begin{Proposition}
+        连通集的有交并仍然连通. 设 $ \{A, A_i : i\in I\} $ 是 $ X $ 的一族连通子基, 满足 $ \forall i\in I\,(A\cap A_i\ne\varnothing) $, 则 $ A\cup\bigcup_{i\in I}A_i $ 仍连通.
+    \end{Proposition}
+    \begin{Proof}
+        记 $ B=A\cup\bigcup_{i\in I}A_i $, 设 $ f : B\to\S^0 $ 连续. 由 $ A $ 的连通性不妨 $ f(A)=\{1\} $, 再由 $ A_i $ 的连通性且 $ A\cap A_i\ne\varnothing $, 可知 $ f(A_i)=\{1\} $. 于是 $ f(B)=\{1\}\ne\S^0 $, 这说明 $ f : B\to\S^0 $ 不可能是满射.\qed
+    \end{Proof}
+
+    \begin{Proposition}
+        连通性是拓扑性质. 设 $ X $ 是连通空间而 $ f : X\to Y $ 是连续映射, 则 $ f(X) $ 在 $ Y $ 中连通.
+    \end{Proposition}
+    \begin{Proof}
+        设 $ g : f(X)\to\S^0 $ 连续, 则 $ gf : X\to\S^0 $ 连续. 由 $ X $ 连通可知 $ gf $ 不是满射, 从而 $ g $ 也不是满射, 故 $ f(X) $ 连通.\qed
+    \end{Proof}
+
+    \begin{Proposition}[积拓扑的连通性]
+        设 $ X_i $ 是连通空间, 则 $ \prod_{i\in I}X_i $ 是连通的.
+    \end{Proposition}
+    \begin{Proof}
+        只证明 $ I=\{1,2\} $ 的情形, 并记 $ X_1=X,\ X_2=Y $. 若 $ X\times Y $ 不连通, 则存在连续满射 $ f : X\times Y\to\S^0 $, 取
+        \[
+            (x_0,y_0)\in f^{-1}(-1),\quad (x_1,y_1)\in f^{-1}(1),
+        \]
+        定义 $ f_x : X\to\S^0,\ x\mapsto f(x,y_1) $ 和 $ f_y : Y\to\S^0,\ y\mapsto f(x_0,y) $, 则 $ f_x $ 和 $ f_y $ 均连续, 且
+        \[
+            f_x(x_1)=1,\qquad f_y(y_0)=-1,\qquad f_x(x_0)=f_y(y_1),
+        \]
+        这说明 $ f_x $ 和 $ f_y $ 至少有一个是满射, 这和 $ X, Y $ 都连通矛盾.\qed
+    \end{Proof}
+
+    \begin{Example}[$ \R $ 上连通子集的结构]\label{ex:R上连通子集的结构}
+        $ X\subset\R $ 是连通当且仅当 $ X $ 是区间.
+    \end{Example}
+    \begin{Proof}
+        设 $ a, b\in X $ 且 $ a<b $. 对任意的 $ c\in(a,b) $, 若 $ c\notin X $, 则 $ (-\infty,c)\cap X $ 和 $ (c,\infty)\cap X $ 就是 $ X $ 的一对不交隔离子集, 且
+        \[
+            X=((-\infty,c)\cap X)\cup((c,\infty)\cap X)
+        \]
+        成立. 这与 $ X $ 的连通性矛盾.\qed
+    \end{Proof}
+
+    \begin{Example}
+        $ \R^2 $ 与 $ \R $ 不同胚.
+    \end{Example}
+    \begin{Proof}
+        为此先证明 $ \R^2\sm\{\mathbf{0}\} $ 是 $ \R^2 $ 中的连通子集. 由例 \ref{ex:R上连通子集的结构} 和积拓扑的连通性可知 $ (-\infty,0)\times\R $ 和 $ \R\times(0,\infty) $ 都是 $ \R^2 $ 中的连通子集, 取
+        \[
+            A=((-\infty,0]\times\R)\sm\{\mathbf{0}\},\qquad B=([0,\infty)\times\R)\sm\{\mathbf{0}\}.
+        \]
+        由于
+        \[
+            (-\infty,0)\times\R\subset A\subset(-\infty,0]\times\R=\baro{(-\infty,0)}\times\R,
+        \]
+        故 $ A\subset\R^2 $ 连通. 同理 $ B\subset\R^2 $ 也是连通的, 且 $ A\cap B\ne\varnothing $, $ A\cup B=\R^2\sm\{\mathbf{0}\} $, 故 $ \R^2\sm\{\mathbf{0}\} $ 连通.
+
+        则若 $ \R^2 $ 与 $ \R $ 同胚, 则它们去掉一个点也同胚. 但 $ \R\sm\{p\} $ 不连通但 $ \R^2\sm\{p\} $ 连通, 故不可能有 $ \R^2\simeq\R $.\qed
+    \end{Proof}
+
+    \begin{Theorem}[介值定理]
+        设 $ f : X\to\R $ 连续, $ X $ 是一连通空间, $ a, b\in f(X) $ 且 $ a<b $, 则
+        \[
+            \forall c\in(a,b)\,\exists x_c\in X\,(f(x_c)=c).
+        \]
+    \end{Theorem}
+    \begin{Proof}
+        由 $ f $ 连续可知 $ f(X)\subset\R $ 也是连通的, 于是 $ f(X) $ 是区间, 而 $ c\in(a,b)\subset f(X) $.\qed
+    \end{Proof}
+
+\subsection{连通分支}
+
+    \begin{Definition}[点点连通]
+        对 $ x,y\in X $, 若存在 $ X $ 的连通子集 $ Y_{x,y} $ 使得 $ x,y\in Y_{x,y} $, 则称 $ x $ 与 $ y $ \emph{连通}.
+    \end{Definition}
+    
+    \begin{Proposition}
+        点点连通是一种等价关系.
+    \end{Proposition}
+    \begin{Proof}
+        自反性和对称性显然, 只证传递性. 不妨设 $ x $ 与 $ y $ 连通且 $ y $ 与 $ z $ 连通, 则存在连通子集 $ Y_{x,y} $ 和 $ Y_{y,z} $ 满足 $ x,y\in Y_{x,y} $, $ y,z\in Y_{y,z} $. 这说明 $ y\in Y_{x,y}\cap Y_{y,z} $, 从而 $ Y_{x,y} $ 与 $ Y_{y,z} $ 连通, 于是 $ x $ 与 $ z $ 连通.\qed
+    \end{Proof}
+
+    \begin{Definition}[连通分支]
+        以点点连通作为等价关系的每一个等价类都称作一个\emph{连通分支}.
+    \end{Definition}
+    
+    \begin{Proposition}
+        设 $ X $ 是一拓扑空间而 $ A_i\,(i\in I) $ 是其连通分支. 连通分支具有以下很容易验证的性质(1)--(5)和容易验证的性质(6)--(8): 
+        \begin{enumerate}
+            \item 当 $ x\ne\varnothing $ 时每一个连通分支 $ A_i\ne\varnothing $;
+            \item 对 $ i\ne j $ 有 $ A_i\cap A_j=\varnothing $;
+            \item $ X=\bigcup_{i\in I}A_i $;
+            \item 对 $ X $ 的子集 $ A $, $ x,y $ 属于 $ A $ 的同一连通分支当且仅当存在 $ A $ 的连通子集同时包含 $ x,y $;
+            \item $ Y\subset X $ 连通当且仅当 $ Y $ 中任意两点连通.
+        \end{enumerate}
+        下面记 $ C\subset X $ 是一个连通分支, 则
+        \begin{enumerate}[start=6]
+            \item 连通分支是极大连通子集, 即若 $ D\subset X $ 是连通子集, 且 $ D\cap C\ne\varnothing $, 则 $ D\subset C $;
+            \item $ C $ 是 $ X $ 的连通子集;
+            \item $ C $ 是一个闭集.
+        \end{enumerate}
+    \end{Proposition}
+    \begin{Proof}
+        (6) 任取 $ x\in D\cap C $ 且 $ y\in D $, 由 $ D $ 的连通性可知 $ x $ 与 $ y $ 连通, 故 $ x,y $ 同属一个连通分支, 这说明 $ x,y\in C $, 故 $ D\subset C $.
+
+        (7) 由定义显然.
+
+        (8) 由 $ C $ 连通可知 $ \bar{C} $ 也连通, 再由 $ C\cap\bar{C}=C\ne\varnothing $, 由(6)可知 $ \bar{C}\subset C $, 即 $ C=\bar{C} $.\qed
+    \end{Proof}
+    
+\subsection{道路连通空间}
+
+    \begin{Definition}[道路]
+        设 $ X $ 是拓扑空间, 连续映射 $ \sigma : [0,1]\to X $ 称为连结 $ x_0=\sigma(0) $ 和 $ x_1=\sigma(1) $ 的\emph{道路}, 并称 $ x_0 $ 和 $ x_1 $ 分别是道路 $ \sigma $ 的\emph{起点}和\emph{终点}, 并记
+        \[
+            \sigma : ([0,1],0,1)\to(X,x_0,x_1).
+        \]
+    \end{Definition}
+
+    需要注意的是道路指的是映射 $ \sigma $, 而非映射的像 $ \sigma([0,1]) $.
+
+    \begin{Definition}[道路连通空间]
+        设 $ X $ 是拓扑空间, 若对任意 $ x,y\in X $, 存在道路 $ \sigma $ 使得 $ \sigma(0)=x,\ \sigma(1)=y $, 则称 $ X $ 是\emph{道路连通空间}.
+    \end{Definition}
+    
+    \begin{Proposition}
+        道路连通空间具有以下容易验证的性质:
+        \begin{enumerate}
+            \item 道路连通空间必连通;
+            \item 连续映射保持道路连通性.
+        \end{enumerate}
+    \end{Proposition}
+    \begin{Proof}
+        (1) 若不然, 存在连续满射 $ f : X\to\S^0 $, 不妨 $ x_0,x_1\in X $ 使得 $ f(x_0)=-1 $ 而 $ f(x_1)=1 $. 由于 $ X $ 道路连通, 故存在道路 $ \sigma $ 使得 $ \sigma(0)=x_0,\ \sigma(1)=x_1 $, 此时
+        \[
+            f\sigma : [0,1]\to\S^0
+        \]
+        使得 $ f\sigma(0)=-1 $ 而 $ f\sigma(1)=1 $, 这与 $ [0,1] $ 连通矛盾, 故 $ X $ 连通.
+
+        (2) 显然.\qed
+    \end{Proof}
+
+    以上命题中 (1) 的逆命题不真, 这由以下的拓扑学典例说明:
+
+    \begin{Example}[拓扑正弦曲线]
+        点集
+        \[
+            S=\set{\left(x,\sin\frac{1}{x}\right)\in\R^2 : 0<x\leqslant 1}\cup\{\mathbf{0}\}
+        \]
+        称作\emph{拓扑正弦曲线}, 它连通但不道路连通.
+    \end{Example}
+    \begin{Proof}
+        这因
+        \[
+            A=\set{\left(x,\sin\frac{1}{x}\right)\in\R^2 : 0<x\leqslant 1}
+        \]
+        是 $ (0,1] $ 的连续像, 故 $ A $ 连通, 而 $ A\subset S\subset\bar{A} $, 于是 $ S $ 也连通.
+
+        下面证明任意以 $ \mathbf{0} $ 为起点的道路 $ \sigma : [0,1]\to S $ 都有 $ \sigma([0,1])=\{\mathbf{0}\} $.
+
+        因为 $ \{\mathbf{0}\} $ 是 $ S $ 的闭子集, 于是 $ \sigma^{-1}(\{0,0\}) $ 是 $ [0,1] $ 的闭子集. 而对任意 $ t_0\in\sigma^{-1}\{\mathbf{0}\} $, 由 $ \sigma $ 的连续性和 $ [0,1] $ 局部连通\footnote{在点 $ x $ 局部连通指对 
+        $ x $ 的任意邻域 $ U $ 都存在连通邻域 $ V $ 使得 $ V\subset U $. 若 $ X $ 每一点局部连通, 则称 $ X $ 是\emph{局部连通空间}. 此处使用的仅仅是它的定义, 其性质不再进一步展开.}可知存在连通开集 $ U $ 包含 $ t_0 $ 使得
+        \[
+            \sigma(U)\subset S\cap B\left(\mathbf{0},\frac{1}{2}\right),
+        \]
+        其中 $ \mathbf{0}\in\sigma(U) $, 且 $ S\cap B(\mathbf{0},1/2) $ 包含的连通分支就是 $ \{\mathbf{0}\} $. 由 $ \sigma(U) $ 连通可知 $ \sigma(U)\subset\{\mathbf{0}\} $, 故 $ U\subset\sigma^{-1}\{\mathbf{0}\} $. 这说明 $ \sigma^{-1}(\{\mathbf{0}\}) $ 是 $ [0,1] $ 的开子集. 由此, $ \sigma^{-1}(\{\mathbf{0}\}) $ 既开又闭且非空, 故 $ \sigma^{-1}(\{\mathbf{0}\})=[0,1] $, 也即 $ \sigma([0,1])=\{\mathbf{0}\} $, 故 $ S $ 不是道路连通的.\qed
+    \end{Proof}
+
+    类似地道路连通也有以下的性质, 证明与连通性类似, 此处从略.
+
+    \begin{Proposition}[积拓扑的道路连通性]
+        设 $ X_i $ 是道路连通的, 则 $ X=\prod_{i\in I}X_i $ 道路连通.
+    \end{Proposition}
+    
+    \begin{Proposition}[点点道路连通]
+        点与点的道路连通关系是一种等价关系.
+    \end{Proposition}
+
+    \begin{Definition}[道路连通分支]
+        以点点道路连通作为等价关系的每一个等价类都称作一个\emph{道路连通分支}.
+    \end{Definition}
+
+    接下来是一个 Euclid 空间 $ \R^n $ 上的性质, 它在数学分析1中已经有过详细的证明, 此处从略.
+
+    \begin{Proposition}
+        $ \R^n $ 中任何连通开集都道路连通, $ \R^n $ 中每个开集的每个道路连通分支也是它的连通分支.
+    \end{Proposition}
