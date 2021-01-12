@@ -55,9 +55,11 @@
         即 $ U\in\CN_{Y}(y) $, 即 $ \CN(y)|_{Y}\subset \CN_{Y}(y) $.
 
         从而 $ \CN_{Y}(y)=\CN(y)|_{Y} $.
-        \begin{center}
-            \includegraphics[width=6cm]{example-image-a}
-        \end{center}
+        \begin{figure*}[!htb]
+            \centering
+            \subfloat[$ \CN_Y(y)\subset\CN(y)|_Y $中的几何关系]{\includegraphics[width=0.35\linewidth]{figures/TopoFig5.png}} \qquad
+            \subfloat[$ \CN(y)|_Y\subset\CN_Y(y) $中的几何关系]{\includegraphics[width=0.35\linewidth]{figures/TopoFig6.png}}
+        \end{figure*}
 
         (4) -- (6) 由定义可证.
 
@@ -96,7 +98,7 @@
             \item 2 -- 环面 $ \T^{2}\cong \T^{1}\times\T^{1} $. 考虑换上经纬度为 $ (x_{1}, x_{2}) $ 的点, 作同胚
             \begin{align*}
                 \varphi: & \T^{2} \to \T^{1}\times\T^{1}, \\
-                & ((a+\cos x_{2})\cos x_{1}, (a+\cos x_{2})\sin x_{1}, sin x_{2}) \mapsto (\exp(2\pi\imag x_{1}), \exp(2\pi\imag x_{2}))
+                & ((a+\cos x_{2})\cos x_{1}, (a+\cos x_{2})\sin x_{1}, \sin x_{2}) \mapsto (\exp(2\pi\imag x_{1}), \exp(2\pi\imag x_{2}))
             \end{align*}
             \item 刺破的平面 $ \C\sm\set{0}\cong \R^{1}\times\S^{1} $. 考虑非零复数的极坐标表示 $ z=r\exp(\imag\theta) $, 作同胚:
             \begin{align*}
@@ -128,7 +130,14 @@
     \begin{Theorem}[连续映射的投影刻画]
         设 $ X_{i}, Y $ 是拓扑空间, 则映射 $ f: Y\to \Prod{i\in I}{}X_{i} $ 连续的充分必要条件是各 $ f_{j}=p_{j}\circ f: Y\to X_{j} $ 连续.
         \begin{center}
-            \includegraphics[width=6cm]{example-image-a}
+            \begin{tikzpicture}
+                \node (Y) at (0,0) {$ Y $};
+                \node (PX) at (2,0) {$ \prod_{i\in I}X_i $};
+                \node (Xj) at (2,-2) {$ X_j $};
+                \draw[->] (Y) -- node[above]{$ f $} (PX);
+                \draw[->] (PX) -- node[right]{$ p_j $} (Xj);
+                \draw[->] (Y) -- node[left]{$ p_j\circ f $} (Xj);
+            \end{tikzpicture}
         \end{center}
     \end{Theorem}
     \begin{Proof}
@@ -140,3 +149,72 @@
         \end{align*}
         即 $ f $ 连续.\qed
     \end{Proof}
+
+\subsection{商空间}
+
+    从等价关系构造商结构, 在拓扑空间即形成商空间. 这是具象的``粘贴''过程的数学描述:
+
+    \begin{Definition}[商空间]
+        设 $ (X,\ST) $ 是一个拓扑空间, $ \sim $ 是 $ X $ 上的等价关系, 并记自然射影为 $ \pi : X\to X/\sim $. 商集上的子集族 $ \ST_\sim=\set{U\subset X/\sim : \pi^{-1}(U)\in\ST} $ 是 $ X/\sim $ 上的拓扑, 称作\emph{商拓扑}, 并称 $ (X/\sim,\ST_\sim) $ 称作 $ (X,\ST) $ 关于等价关系 $ \sim $ 的\emph{商空间}.
+    \end{Definition}
+
+    \begin{Proposition}
+        设 $ X/\sim $ 是 $ X $ 关于 $ \sim $ 的商空间, 则
+        \begin{enumerate}
+            \item 自然射影 $ \pi : X\to X/\sim $ 是连续满射;
+            \item 商拓扑 $ \ST_\sim $ 是使得 $ \sim $ 连续的最细拓扑;
+            \item 设 $ Y $ 是拓扑空间, 映射 $ f : X/\sim\to Y $ 连续当且仅当 $ f\circ\pi $ 连续.
+        \end{enumerate}
+        \begin{center}
+            \begin{tikzpicture}
+                \node (X) at (0,0) {$ X $};
+                \node (Y) at (2,0) {$ Y $};
+                \node (X1) at (0,-2) { $ X/\sim $ };
+                \draw[->] (X) -- node[above]{$ f\circ \pi $} (Y);
+                \draw[->] (X) -- node[left]{$ \pi $} (X1);
+                \draw[->] (X1) -- node[right]{$ f $} (Y);
+            \end{tikzpicture}
+        \end{center}
+    \end{Proposition}
+    \begin{Proof}
+        (1) 满射即商结构的泛性质, 而连续只需注意到任何开集的原像仍然是开的.
+
+        (2) 设 $ \ST' $ 是 $ X/\sim $ 上使得 $ \pi $ 连续的拓扑, 则对任意 $ U\in\ST' $ 有 $ \pi^{-1}(U)\in\ST $. 而由商拓扑的定义可知 $ U\in\ST_\sim $, 于是 $ \ST'\subset\ST_\sim $. 从而 $ \ST_\sim $ 是使得 $ \pi $ 连续的最细的拓扑.
+
+        (3) 必要性显然, 充分性只需考虑 $ f\circ\pi $ 的原像 $ \pi^{-1}(f^{-1}(U)) $ 是 $ X $ 的开集即可.\qed
+    \end{Proof}
+
+    商结构的泛性质自然不局限于自然射影 $ \pi $, 对任意 $ f : X\to Y $ 是连续满射, 都可以定义等价关系 $ \sim_f $ 使得 $ x_1\sim x_2 $ 当且仅当 $ f(x_1)=f(x_2) $, 并记 $ f/\sim $ 是在等价类上取值为其代表元上函数值的函数. 上述命题的 (3) 将 $ \pi $ 换成 $ f/\sim $ 后仍然成立.
+
+    \begin{Proposition}
+        设 $ f : X\to Y $ 是连续满射, 则 $ f/\sim $ 是连续双射. 且 $ f $ 是开映射或者闭映射时, $ f/\sim $ 是同胚.
+    \end{Proposition}
+
+    \begin{Example}
+        许多一提到就会令人想到拓扑的形状都可以通过商结构构造出来:
+        \begin{enumerate}
+            \item 设 $ A $ 是 $ X $ 的闭子集, 若 $ A $ 中所有点同属一个等价类而 $ X\sm A $ 中的每一个点都自成一类, 则得到将 $ A $ 捏成一点构成的空间, 记作 $ X/A $.
+            \item 圆环 $ \T^1 $ 可以看作单位区间 $ \mathbb{I}=[0,1] $ 将首尾捏成一点得到的空间 $ \mathbb{I}/\partial\mathbb{I}\simeq\T^1 $, 同胚取 $ p : t\mapsto\exp(2\pi\imag t) $ 导出的 $ p/\sim $ 即可.
+            \item 将正方形 $ [0,1]\times[0,1] $ 的两条竖直边反向粘贴, 即 $ (0,x_2)\sim(1,1-x_2) $, 对其他点则自成一等价类. 这样得到的空间即为 \emph{M\"obius 带}.
+            \begin{figure}[!htb]
+                \centering
+                \includegraphics[width=0.4\linewidth]{figures/Mobius_strip.jpg}
+            \end{figure}
+            \item 将正方形 $ [0,1]\times[0,1] $ 的两条水平边同向粘贴, 再将两条竖直边同向粘贴, 即得到2--环面, 同胚由 $ p: (x_1,x_2)\mapsto(\exp(2\pi\imag x_1),\exp(2\pi\imag x_2)) $ 给出.
+            \item 将正方形 $ [0,1]\times[0,1] $ 的两条水平边同向粘贴, 再将两条竖直边同向粘贴, 即得到 \emph{Klein 瓶}.
+            \begin{figure}[!htb]
+                \centering
+                \includegraphics[width=0.25\linewidth]{figures/Klein_bottle.jpg}
+            \end{figure}
+        \end{enumerate}
+    \end{Example}
+
+    \begin{Example}
+        还有一个十分重要的例子: \emph{实射影空间} $ \mathbb{RP}^n $: 在 $ X=\R^{n+1}\sm\set{\mathbf{0}} $ 上取等价关系
+        \[
+            x_1\sim x_2\Longleftrightarrow\exists\lambda\in\R^\times\,(x_1=\lambda x_2),
+        \]
+        则 $ \mathbb{RP}^n:=X/\sim $. 特别地, $ \mathbb{RP}^2 $ 成为射影平面. 将 $ x\ne 0 $ 所在的等价类对应于 $ \R^{n+1} $ 中过原点 $ \mathbf{0} $ 和 $ x $ 的直线, 就可以将 $ \mathbb{RP}^n $ 看作 $ \R^{n+1} $ 中所有通过原点直线全体.
+
+        设 $ \pi : X\to\mathbb{RP}^n $ 是自然射影, 则 $ \pi $ 在 $ \S^n $ 上的限制 $ p=\pi|_{\S^n} $ 是连续满射, 于是有 $ \mathbb{RP}^n\simeq\S^n/(\sim_p) $. 此时 $ \mathbb{RP}^n $ 可以看作是将 $ \S^n $ 上的 $ x $ 和 $ -x $ 捏成一点得到的空间, $ x $ 和 $ -x $ 称作一对\emph{对径点}.
+    \end{Example}
